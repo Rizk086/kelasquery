@@ -1,0 +1,10 @@
+<svg width="147" height="26" xmlns="http://www.w3.org/2000/svg" class="feather feather-book" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none">
+ <title>Icon</title>
+
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_1" d="m4,19.5a2.5,2.5 0 0 1 2.5,-2.5l13.5,0"/>
+  <path id="svg_2" d="m6.5,2l13.5,0l0,20l-13.5,0a2.5,2.5 0 0 1 -2.5,-2.5l0,-15a2.5,2.5 0 0 1 2.5,-2.5z"/>
+  <text font-weight="bold" xml:space="preserve" text-anchor="start" font-family="'', serif" font-size="24" id="svg_5" y="20" x="22.00001" stroke-width="0" stroke="#000" fill="#000000">KelasQuery</text>
+ </g>
+</svg>

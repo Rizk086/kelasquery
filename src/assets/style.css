@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+/* @font-face {
+  font-family: Lato;
+  src: url('fonts/lato/Lato-Regular.ttf');
+}
+
+@theme {
+  --font-sans: Lato;
+} */

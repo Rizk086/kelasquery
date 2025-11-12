@@ -1,0 +1,41 @@
+{
+  "name": "kelasquery",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.81.1",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.1.17",
+    "@tiptap/extension-code-block-lowlight": "^3.10.5",
+    "@tiptap/extension-file-handler": "^3.10.5",
+    "@tiptap/extension-image": "^3.10.5",
+    "@tiptap/extension-mathematics": "^3.10.5",
+    "@tiptap/extension-placeholder": "^3.10.5",
+    "@tiptap/extensions": "^3.10.5",
+    "@tiptap/pm": "^3.10.5",
+    "@tiptap/starter-kit": "^3.10.5",
+    "@tiptap/vue-3": "^3.10.5",
+    "highlight.js": "^11.11.1",
+    "katex": "^0.16.25",
+    "lucide-vue-next": "^0.553.0",
+    "tailwindcss": "^4.1.17",
+    "unique-username-generator": "^1.5.1",
+    "vue": "^3.5.22",
+    "vue-router": "^4.6.3",
+    "vue3-toastify": "^0.2.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "vite": "^7.1.11",
+    "vite-plugin-vue-devtools": "^8.0.3"
+  }
+}
