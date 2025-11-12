@@ -2,7 +2,7 @@
 import NavLink from '@/components/layout/NavLink.vue'
 import { onBeforeMount, onMounted, ref } from 'vue'
 import { getPost, sendAnswer, getAnswerFromPost } from '@/services/homework'
-import { useRoute } from 'vue-router'
+import { onBeforeRouteLeave, onBeforeRouteUpdate, useRoute } from 'vue-router'
 import AnswerCardComponent from '@/components/common/AnswerCardComponent.vue'
 import { toast } from 'vue3-toastify'
 import "vue3-toastify/dist/index.css"
@@ -13,6 +13,7 @@ import { isTiptapContentEmpty } from '@/utils/tiptap_checker'
 import router from '@/router'
 import { ThumbsUp, MessageCircle } from 'lucide-vue-next'
 import VoteButtons from '@/components/common/VoteButtons.vue'
+import metadata from '@/services/metadata'
 
 const route = useRoute()
 const retrievedData = ref("")
@@ -22,7 +23,7 @@ const permanent_disabled = ref(true)
 const answers = ref([])
 const displayAnswerDialog = ref(false)
 const loaded = ref(false)
-const editorRef = ref(null)
+const editorRef = ref({})
 
 async function fetchData(id) {
   try {
@@ -34,8 +35,10 @@ async function fetchData(id) {
     } else {
       window.location.href = '/404'
     }
-  } catch (err) {
+  } 
+  catch (err) {
     console.error(err)
+    window.location.href = '/404'
   }
 }
 
@@ -112,12 +115,12 @@ function toggleAnswerDialog() {
     displayAnswerDialog.value = true
   } else {
     displayAnswerDialog.value = false
+    editorRef.value?.clearEditor()
   }
 }
 
-function vote() {
-  redirectLogin()
-}
+onBeforeRouteLeave(() => !displayAnswerDialog? editorRef.value?.clearEditor() : true)
+onBeforeRouteUpdate(() => !displayAnswerDialog? editorRef.value?.clearEditor() : true)
 </script>
 
 <template>
@@ -125,12 +128,12 @@ function vote() {
   <div
     class="-z-10 hidden md:block absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]">
   </div>
-  <div v-if="loaded">
+  <div v-if="loaded" class="mb-20">
     <div v-if="!displayAnswerDialog">
       <div
         class="p-4 md:pt-16 flex flex-col border-b-2 items-center md:m-4 md:border-2 md:rounded-2xl md:shadow-xl bg-white">
         <h1 class="text-4xl xl:text-6xl text-left md:text-center font-bold mb-8 w-full">{{ title }}</h1>
-        <span class="text-left font-bold md:text-center mb-8 w-full">>{{ retrievedData.author.username }}</span>
+        <span class="text-left font-bold md:text-center mb-8 w-full">{{ metadata.get('user_handle') }}{{ retrievedData.author.username }}</span>
         <span class="flex items-center w-full md:w-96 justify-between mb-8">
           <span class="h-px flex-1 bg-gray-300 dark:bg-gray-600 hidden md:block"></span>
 
@@ -161,10 +164,10 @@ function vote() {
         <span class="text-2xl md:text-4xl font-bold p-4 md:p-0">Answers:</span>
         <div v-if="answers && answers.length > 0" class="mt-4">
           <AnswerCardComponent v-for="(answer, index) in answers" :key="index" :id="answer.id"
-            :description="answer.description" :author="`>${answer.author.username}`" :content="answer.content"
+            :description="answer.description" :author="`${metadata.get('user_handle')}${answer.author.username}`" :content="answer.content"
             :createdAt="answer.created_at" />
         </div>
-        <div v-else class="text-gray-500 p-4 md:p-0">No answers yet.</div>
+        <div v-else class="text-gray-500 p-4 md:p-0 text-center">It's so empty.</div>
       </div>
 
     </div>

@@ -2,6 +2,7 @@
 import { Book } from 'lucide-vue-next'
 import { sideNav } from '../components'
 import userData from '@/services/userInfo';
+import metadata from '@/services/metadata';
 
 const activeClass = 'bg-blue-600 text-white'
 </script>
@@ -17,7 +18,7 @@ const activeClass = 'bg-blue-600 text-white'
     :class="{ 'translate-x-0': sideNav.state }"
   >
     <div class="px-4 pb-7 pt-5">
-      <div class="font-bold text-3xl space-x-1 w-52 items-center mb-24">
+      <div class="font-bold text-3xl space-x-1 w-52 items-center mb-24 select-none">
         <Book class="inline" />
         <span class="inline">KelasQuery</span>
       </div>
@@ -50,7 +51,7 @@ const activeClass = 'bg-blue-600 text-white'
 
         <div>
           <p class="text-xs max-w-40 overflow-hidden text-nowrap">
-            <strong class="block font-medium" v-if="userData.isLoggedIn">>{{ userData.username }}</strong>
+            <strong class="block font-medium" v-if="userData.isLoggedIn">{{ metadata.get('user_handle') }}{{ userData.username }}</strong>
             <strong class="block font-medium" v-else>Anonymous</strong>
           </p>
         </div>

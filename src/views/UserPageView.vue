@@ -7,7 +7,7 @@
         <UserIcon class="w-10 h-10 text-gray-500" />
       </div>
       <div>
-        <h2 class="text-2xl font-bold text-gray-800">>{{ userData.username }}</h2>
+        <h2 class="text-2xl font-bold text-gray-800">{{ metadata.get('user_handle') }}{{ userData.username }}</h2>
       </div>
     </div>
 
@@ -39,6 +39,7 @@ import { useRouter } from 'vue-router'
 import { supabase } from '@/utils/supabase'
 import { modal } from '@/components/components'
 import ModalBox from '@/components/common/ModalBox.vue'
+import metadata from '@/services/metadata'
 
 const router = useRouter()
 

@@ -77,7 +77,6 @@ import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 // Start of Tiptap extensions imports
 import StarterKit from '@tiptap/starter-kit'
-import { Dropcursor } from '@tiptap/extensions'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import ImageEX from '@tiptap/extension-image'
 import FileHandler from '@tiptap/extension-file-handler'
@@ -390,7 +389,6 @@ onMounted(() => {
         inline: false,
         allowBase64: true,
       }),
-      Dropcursor,
       FileHandler.configure({
         allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif'],
         onDrop: (currentEditor, files, pos) => {

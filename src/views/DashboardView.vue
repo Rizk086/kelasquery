@@ -1,10 +1,8 @@
 <script setup>
 import NavLink from '@/components/layout/NavLink.vue'
-import { ref } from 'vue'
 import userData from '@/services/userInfo'
 import metadata from '@/services/metadata'
 
-const name = ref('')
 </script>
 
 <template>

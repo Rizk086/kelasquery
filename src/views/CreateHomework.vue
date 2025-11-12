@@ -87,15 +87,8 @@ async function getSubjects() {
 
 getSubjects()
 
-onBeforeRouteLeave(() => {
-  editorRef.value?.clearEditor()
-  return true
-})
-
-onBeforeRouteUpdate(() => {
-  editorRef.value?.clearContent()
-  return true
-})
+onBeforeRouteLeave(() => editorRef.value?.clearEditor() )
+onBeforeRouteUpdate(() => editorRef.value?.clearEditor() )
 </script>
 
 <template>

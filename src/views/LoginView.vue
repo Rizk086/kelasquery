@@ -31,20 +31,17 @@ onBeforeRouteLeave((to, from) => {
 </script>
 
 <template>
-  <section class="bg-gray-50">
+  <section class="bg-gray-50 h-full">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-      <a href="/" class="flex items-center mb-6 text-2xl font-semibold text-gray-900">
+      <a href="/" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 select-none">
         <Book class="inline" />
         <span class="inline">KelasQuery</span>
       </a>
       <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 border-2">
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 class="text-xl font-bold leading-tight tracking-tight md:text-2xl text-gray-900">
-            Welcome!
+          <h1 class="text-xl text-center font-bold leading-tight tracking-tight md:text-2xl text-gray-900">
+            Login
           </h1>
-          <p class="text-sm text-gray-500">
-            Please Input the credential provided by Administrator
-          </p>
           <div class="space-y-4 md:space-y-6">
             <div>
               <!-- <label for="email" class="block mb-2 text-sm font-medium text-gray-900"

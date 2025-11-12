@@ -11,7 +11,7 @@ sideNav.force_hidden = true
   <section>
     <div class="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center">
       <div class="mx-auto max-w-xl text-center">
-        <h1 class="font-extrabold text-5xl bg-white">
+        <h1 class="font-extrabold text-5xl bg-white select-none">
           <Book class="inline" :size="48" />KelasQuery
         </h1>
 

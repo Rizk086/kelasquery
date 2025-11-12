@@ -5,6 +5,7 @@ import { getPost } from '@/services/homework'
 import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import userInfo from '@/services/userInfo'
+import metadata from '@/services/metadata'
 const retrievedData = ref([])
 const msg001 = ref('')
 
@@ -42,7 +43,7 @@ onMounted(async () => {
         :subject="post.subject"
         :createdAt="post.created_at"
         :id="post.id"
-        :author="`>${post.author.username}`"
+        :author="`${metadata.get('user_handle')}${post.author.username}`"
         class="mb-4"
       ></CardComponent>
     </div>
