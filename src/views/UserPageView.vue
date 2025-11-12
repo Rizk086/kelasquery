@@ -1,7 +1,7 @@
 <template>
   <ModalBox :modal="modal" @close="modal.handleClose" @update="modal.handleUpdate" />
-  <NavLink>Dashboard</NavLink>
-  <section class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-lg">
+  <NavLink>Profile</NavLink>
+  <section class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-lg" v-if="userData.isLoggedIn">
     <div class="flex items-center space-x-4">
       <div class="bg-gray-100 rounded-full p-3">
         <UserIcon class="w-10 h-10 text-gray-500" />
@@ -40,16 +40,17 @@ import { supabase } from '@/utils/supabase'
 import { modal } from '@/components/components'
 import ModalBox from '@/components/common/ModalBox.vue'
 import metadata from '@/services/metadata'
+import { toast } from 'vue3-toastify'
 
 const router = useRouter()
 
 function editProfile() {
-  // Implement edit profile logic
+  // TODO: Implement edit profile logic
   alert('Edit profile clicked')
 }
 
 function changePassword() {
-  // Implement change password logic
+  // TODO: Implement change password logic
   alert('Change password clicked')
 }
 
@@ -60,6 +61,9 @@ function logout() {
       if (result) {
         try {
           await supabase.auth.signOut()
+          toast.info("You've logged out", {
+            autoClose: 3000,
+          })
           router.push('/')
         } catch (error) {
           console.error('Error during logout:', error)

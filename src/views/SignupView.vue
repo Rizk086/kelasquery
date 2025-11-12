@@ -31,7 +31,7 @@ function usernameReqCheckFunction(payload) {
     usernameReqCheck.value = {ok: false, message: 'Username must be less than 21 characters long'}
     document.getElementById('username').value = usernameInput.slice(0, 21)
   } else if (!/^[a-z0-9_-]+$/.test(usernameInput)) {
-    usernameReqCheck.value = {ok: false, message: 'Username can only contain letters, numbers, and underscores'}
+    usernameReqCheck.value = {ok: false, message: 'Username can only contain lower-case letters, numbers, and underscores'}
   } else {
     usernameReqCheck.value = {ok: true, message: 'Username looks good!'}
   }
@@ -129,7 +129,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="bg-gray-50">
+  <section class="bg-gray-50 h-full">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
       <a href="/" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 select-none">
         <Book class="inline" />

@@ -31,7 +31,7 @@
       <button @click="editor.chain().focus().toggleCodeBlock().run()" :class="toolbarBtn('codeBlock')" title="Code Block">
         <LucideCode class="w-5 h-5" />
       </button>
-      <button @click="showMath = !showMath" :class="toolbarBtn()" title="Math">
+      <button @click="showMath = !showMath" :class="toolbarBtn('math')" title="Math">
         <LucideSigma class="w-5 h-5" />
       </button>
       <button @click="setLink" :class="toolbarBtn('link')" title="Insert Link">
@@ -124,7 +124,7 @@ const toolbarBtn = (type, level = null) => {
     case 'bulletList': active = editor.value.isActive('bulletList'); break
     case 'orderedList': active = editor.value.isActive('orderedList'); break
     case 'codeBlock': active = editor.value.isActive('codeBlock'); break
-    case 'math': active = editor.value.isActive('math'); break
+    case 'math': active = showMath.value; break
     case 'link': active = editor.value.isActive('link'); break
     default: active = false; break
   }
@@ -624,8 +624,47 @@ onBeforeUnmount(() => {
     max-width: 100%;
 
     &.ProseMirror-selectednode {
-      outline: 3px solid var(--purple);
+      outline: 3px solid #00897B;
     }
   }
 }
+
+  /* Mathematics extension styles */
+  .tiptap-mathematics-render {
+    padding: 0 0.25rem;
+
+    &--editable {
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #eee;
+      }
+    }
+  }
+
+  .tiptap-mathematics-render {
+    border-radius: 0.25rem;
+
+    &[data-type='inline-math'] {
+      display: inline-block;
+    }
+
+    &[data-type='block-math'] {
+      display: block;
+      margin: 1rem 0;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    &.inline-math-error,
+    &.block-math-error {
+      background: var(--red-light);
+      color: var(--red);
+      border: 1px solid var(--red-dark);
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+    }
+  }
+
 </style>

@@ -51,37 +51,41 @@ async function fetchAnswer(id) {
 
 }
 
-async function post_answer() {
-  permanent_disabled.value = true
-  try {
-    await sendAnswer(
-      route.params.id,
-      await editorRef.value.getFinalJSONContent()
-    )
-    toast.success('Answer posted successfully!', {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
-    setTimeout(() => {
-      window.location.reload()
-    }, 2000)
-  } catch (error) {
-    toast.error('Failed to post answer.\n' + error, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
-  }
+const post_answer = () => { 
+  toast.promise(new Promise(async (resolve, reject) => {
+    permanent_disabled.value = true
+    try {
+      await sendAnswer(
+        route.params.id,
+        await editorRef.value.getFinalJSONContent()
+      )
+      setTimeout(() => {
+        window.location.reload()
+      }, 2000)
+      resolve()
+    } catch (error) {
+      reject({message: error})
+    }
 
+  }),
+  {
+    pending: {
+      render() {
+        return "Sending answer..."
+      }
+    },
+    success: {
+      render() {
+        return "Answer posted successfully"
+      }
+    },
+    error: {
+      render(err) {
+        return `Failed to upload answer\n${err.data?.message}`
+      }
+    }
+  }
+  )
 }
 onBeforeMount(() => {
   document.title = 'Loading... :: KelasQuery'
