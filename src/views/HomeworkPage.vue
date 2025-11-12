@@ -11,7 +11,7 @@ import TipTapReadOnly from '@/components/common/TipTapReadOnly.vue'
 import userInfo from '@/services/userInfo'
 import { isTiptapContentEmpty } from '@/utils/tiptap_checker'
 import router from '@/router'
-import { ThumbsUp, MessageCircle } from 'lucide-vue-next'
+import { MessageCircle } from 'lucide-vue-next'
 import VoteButtons from '@/components/common/VoteButtons.vue'
 import metadata from '@/services/metadata'
 
@@ -136,8 +136,8 @@ onBeforeRouteUpdate(() => !displayAnswerDialog? editorRef.value?.clearEditor() :
     <div v-if="!displayAnswerDialog">
       <div
         class="p-4 md:pt-16 flex flex-col border-b-2 items-center md:m-4 md:border-2 md:rounded-2xl md:shadow-xl bg-white">
-        <h1 class="text-4xl xl:text-6xl text-left md:text-center font-bold mb-8 w-full">{{ title }}</h1>
-        <span class="text-left font-bold md:text-center mb-8 w-full">{{ metadata.get('user_handle') }}{{ retrievedData.author.username }}</span>
+        <h1 class="text-4xl xl:text-5xl text-left md:px-48 text-pretty font-bold w-full">{{ title }}</h1>
+        <span class="text-left font-bold md:px-48 mb-8 w-full">{{ metadata.get('user_handle') }}{{ retrievedData.author.username }}</span>
         <span class="flex items-center w-full md:w-96 justify-between mb-8">
           <span class="h-px flex-1 bg-gray-300 dark:bg-gray-600 hidden md:block"></span>
 

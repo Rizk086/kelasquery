@@ -33,7 +33,7 @@ import metadata from '@/services/metadata'
         <p class="text-pretty">Yet Another Forum to help student(s) to manage their homeworks. Currently still under development.</p>
         <br>
         <p class="text-pretty">
-          If you've found a bug or suggestion, you can <a target="_blank" href="https://github.com/Rizk086/kelasquery-web/issues" class="border-b">submit an issue on GitHub.</a>
+          If you've found a bug or suggestion, you can <a target="_blank" href="https://github.com/Rizk086/kelasquery/issues" class="border-b">submit an issue on GitHub.</a>
         </p>
       </div>
     </div>
