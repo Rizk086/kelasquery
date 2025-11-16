@@ -15,7 +15,9 @@ const props = defineProps({
 
 const chname = `${props?.id}_on_${props?.v_type}`
 const vote_data = ref([])
-const has_user_voted = ref(false)
+const has_user_voted = () => {
+  return vote_data.value.some(vote => vote.user_id === userInfo.user_id)
+}
 
 async function voteUp() {
   if (!userInfo.isLoggedIn) {
@@ -23,14 +25,9 @@ async function voteUp() {
     return
   }
 
-  has_user_voted.value = (vote_data.value.filter((vote => {
-    return vote.user_id == userInfo.user_id
-  }))).length
-
-  console.log(vote_data.value)
-  console.log(has_user_voted.value)
-
-  if (has_user_voted.value) {
+  console.log('voting', has_user_voted())
+  
+  if (has_user_voted()) {
     const response = await supabase.from(props?.v_type).delete().eq('ref_id', props?.id)
     console.log('delete',response)
   }
@@ -59,16 +56,12 @@ onMounted(async () => {
   .subscribe((status) => {
     console.log("subscription status: ", status, chname)
   })
-
-  has_user_voted.value = vote_data.value.filter((vote => {
-    vote.user_id == userInfo.user_id
-  })) || false
 })
 
 </script>
 
 <template>
-  <button @click="voteUp" class="flex flex-row gap-1 w-20 px-4 py-2 rounded shadow bg-white my-4 cursor-pointer">
+  <button @click="voteUp" :class="has_user_voted() ? 'bg-blue-600 text-white' : 'bg-white'" class="flex flex-row gap-1 w-20 px-4 py-2 rounded shadow transition-colors my-4 cursor-pointer">
     <ArrowBigUp />
     <span>{{ vote_data.length }}</span>
   </button>
