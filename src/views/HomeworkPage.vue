@@ -144,14 +144,16 @@ function toggleAnswerDialog() {
 }
 
 function copyLink() {
-  const link_text = String(window.location.href)
-  if (window.isSecureContext && navigator.clipboard) {
-    console.log(link_text)
-    navigator.clipboard.write(link_text)
-      .then(() => toast.success("Link copied"))
-      .catch((err) => console.error(err))
+  const link = window.location.href
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(link).then(() => {
+      toast.info("Link copied to clipboard")
+    }).catch((err) => {
+      console.error("Unable to copy: ", err)
+      unsecureCopyLink(link)
+    })
   } else {
-    unsecureCopyLink(link_text)
+    unsecureCopyLink(link)
   }
 }
 
