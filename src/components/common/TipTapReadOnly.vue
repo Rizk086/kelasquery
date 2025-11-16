@@ -3,7 +3,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
-import Image from '@tiptap/extension-image'
+import ImageNode from '@tiptap/extension-image'
 import { Mathematics, migrateMathStrings } from '@tiptap/extension-mathematics'
 import Placeholder from '@tiptap/extension-placeholder'
 import { createLowlight, common } from 'lowlight'
@@ -34,7 +34,7 @@ onMounted(() => {
         lowlight
       }),
       CodeBlockLowlight.configure({ lowlight }),
-      Image,
+      ImageNode,
       Mathematics,
       Placeholder.configure({
         placeholder: 'Type something...',

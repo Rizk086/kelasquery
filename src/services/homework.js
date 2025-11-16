@@ -27,6 +27,8 @@ export async function getPost(id) {
       throw new Error('lmao')
     }
 
+    console.log(data.img_path)
+
     const returnData = {
         id: data.id,
         title: data.title,
@@ -60,7 +62,7 @@ export async function getPost(id) {
   }
 }
 
-export async function sendPost(name, subject, content) {
+export async function sendPost(name, subject, content, img_path) {
   const { data: subjectText } = await supabase
     .from('subjects')
     .select('name')
@@ -71,7 +73,7 @@ export async function sendPost(name, subject, content) {
     let { data, error } = await supabase
       .from('posts')
       .insert([
-        { title: name, subject: subjectText.name, content: content },
+        { title: name, subject: subjectText.name, content: content, img_path },
       ])
 
     if (error) {
@@ -135,5 +137,25 @@ export async function getAnswerFromPost(post_id) {
     }
   } else {
     console.error('Post ID is required to fetch answers.')
+  }
+}
+
+export async function deletePost(id) {
+  if (!id)
+    throw new Error("Please enter a Post ID")
+
+  const {data} = await supabase.from('posts').select('img_path').eq('id', id).single()
+  const imagePath = data.img_path
+
+  console.log(imagePath)
+  if (imagePath.length > 0) {
+    const {error} = await supabase.storage.from('post-images').remove(imagePath)
+    if (error)
+      throw error
+  }
+
+  const response = await supabase.from('posts').delete().eq('id', id)
+  if (response.error) {
+    throw response.error
   }
 }

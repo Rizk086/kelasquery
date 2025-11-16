@@ -6,9 +6,9 @@ let uname = ""
 
 try {
   let { data, error } = await supabase.auth.getUser()
-  if (error) {
+  if (error) 
     throw error
-  }
+  
   if (data.user) {
     uid = data.user.id
 

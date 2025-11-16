@@ -3,8 +3,8 @@ import { Book } from 'lucide-vue-next'
 import { sideNav } from '../components'
 import userData from '@/services/userInfo';
 import metadata from '@/services/metadata';
-
 const activeClass = 'bg-blue-600 text-white'
+
 </script>
 
 <template>

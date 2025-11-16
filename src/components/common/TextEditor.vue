@@ -95,6 +95,7 @@ import { Bold as LucideBold, Italic as LucideItalic, Strikethrough as LucideStri
 import { toast } from 'vue3-toastify'
 import { supabase } from '@/utils/supabase'
 
+
 const lowlight = createLowlight(common)
 // Register highlight.js languages
 lowlight.register({js})
@@ -146,6 +147,10 @@ const CustomImage = ImageEX.extend({
 const triggerImageUpload = () => {
   fileInput.value.click()
 }
+
+const props = defineProps([
+  'initialjson'
+])
 
 const handleImageUpload = async (e) => {
   const file = e.target.files[0]
@@ -301,10 +306,10 @@ async function actualImageUpload(file) {
   try {
     const { data } = supabase.storage.from('post-images').getPublicUrl(path)
     console.log('Public URL data:', data)
-    return { url: data.publicUrl }
+    return { url: data.publicUrl, path: path }
   } catch (error) {
     console.error('Error getting public URL:', error)
-    toast.error('Image upload failed.' + error, {
+    toast.error('Image upload failed.\n' + error, {
       position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
@@ -385,6 +390,7 @@ onMounted(() => {
         codeBlock: false, // Disable default code block to use our custom one
       }),
       CodeBlockLowlight.configure({ lowlight }),
+      ImageEX,
       CustomImage.configure({
         inline: false,
         allowBase64: true,
@@ -462,7 +468,7 @@ onMounted(() => {
       // Migrate math strings to the new format
       migrateMathStrings(currentEditor)
     },
-    content: '',
+    content: props?.initialjson || "",
     onUpdate: ({ editor }) => {
 /*       const html = editor.getHTML()
       const markdown = turndownService.turndown(html) */
@@ -481,6 +487,8 @@ onMounted(() => {
 
 const getFinalJSONContent = async () => {
   const jsonContent = editor.value?.getJSON()
+
+  const uploadedImagesPath = []
 
   if (!jsonContent || pendingImages.value.size === 0) {
     return jsonContent
@@ -513,6 +521,7 @@ const getFinalJSONContent = async () => {
       if (found) {
         uploadPromises.push(
           actualImageUpload(imageData.file).then((uploadedData) => {
+            uploadedImagesPath.push(uploadedData.path)
             return {
               tempId: tempId,
               uploadedUrl: uploadedData,
@@ -570,7 +579,10 @@ const getFinalJSONContent = async () => {
 
     pendingImages.value.clear()
 
-    return finalContent
+    return {
+      json: finalContent,
+      imagePath: uploadedImagesPath
+    }
 
   } catch (error) {
     console.error('Error uploading images:', error)

@@ -26,9 +26,9 @@ const handleSendPost = () => {
     is_disabled.value = true
     console.log(document.querySelector('#title').value)
     console.log(document.querySelector('#subject').value)
-    const json_content = await editorRef.value.getFinalJSONContent()
-    console.log(json_content)
-    if (isTiptapContentEmpty(json_content)) {
+    const finalContent = await editorRef.value.getFinalJSONContent()
+    console.log(finalContent)
+    if (isTiptapContentEmpty(finalContent.json)) {
       is_disabled.value = false
       reject({ message: "Content cannot be empty!" })
     }
@@ -36,7 +36,8 @@ const handleSendPost = () => {
       postSended.value = await sendPost(
         document.querySelector('#title').value,
         document.querySelector('#subject').value,
-        json_content
+        finalContent.json,
+        finalContent.imagePath,
       )
       is_disabled.value = false
       setTimeout(() => {
@@ -85,15 +86,12 @@ onBeforeRouteUpdate(() => editorRef.value?.clearEditor())
 <template>
   <NavLink>Create</NavLink>
   <div class="p-4" v-if="!postSended.ok">
-    <span class="text-2xl font-bold">Title:</span><br />
-    <input type="text" name="" id="title" class="my-2 rounded-lg border border-gray-800 p-1 w-full" required /><br />
-    <span class="text-2xl font-bold">Subject: </span>
-    <select name="" id="subject" class="mx-4 px-4 text-xl font-bold border border-gray-800 rounded-lg">
-      <option selected disabled value="">Choose one</option>
+    <select name="" id="subject" class="mt-0.5 p-1 w-full rounded border-gray-300 shadow-sm sm:text-sm">
+      <option selected disabled value="">Choose a Subject</option>
       <option v-for="(item) in subjects" :key="item.id" :value="item.id">{{ item.name }}</option>
     </select>
+    <input type="text" name="" id="title" placeholder="Title" class="my-2 rounded shadow-sm border-gray-300 p-1 w-full" required />
     <div class="min-w-48 mx-auto">
-      <span class="text-2xl font-bold">Content:</span>
       <TextEditor v-on:update:json="handleJSONUpdate" ref="editorRef" />
     </div>
     <button

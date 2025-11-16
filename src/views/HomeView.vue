@@ -26,9 +26,9 @@ sideNav.force_hidden = true
 
           <a
             class="block w-full rounded-sm px-12 py-3 text-sm font-medium text-blue-600 shadow-sm bg-white hover:text-blue-700 focus:ring-3 focus:outline-hidden sm:w-auto"
-            href="/login"
+            href="/homework"
           >
-            Sign in
+            Homework
           </a>
         </div>
       </div>

@@ -3,9 +3,11 @@ import { RouterView } from 'vue-router'
 import SidebarLink from './components/layout/SidebarLink.vue'
 import { sideNav } from './components/components'
 import { ref } from 'vue'
+import metadata from './services/metadata'
 
 const date = ref(new Date())
 const dateString = ref('')
+const server = ref(null)
 
 function updateTime() {
   let year = date.value.getFullYear()
@@ -30,7 +32,8 @@ setInterval(() => {
   <div class="flex">
     <SidebarLink v-if="!sideNav.force_hidden" />
     <div class="flex-1 overflow-auto h-screen">
-      <span class="text-sm fixed bottom-0 right-0 z-10 text-gray-400 font-mono">
+      <span class="text-sm fixed bottom-0 right-0 z-10 text-gray-400 font-mono  select-none">
+        <span v-if="metadata.has('error')">DB Server is Not Connected! | </span>
         <span>[{{ dateString }}]</span>
       </span>
       <RouterView></RouterView>
